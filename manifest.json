@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "Profile Analyzer",
+  "description": "Profile Description",
+  "version": "1.0",
+  "icons": {
+    "48": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": [
+        "jquery-1.12.2.js",
+        "alert.js",
+        "load.js",
+        "contentScriptForLinkedin.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["storage", "contextMenus", "tabs", "<all_urls>"],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Profile Analyzer",
+    "default_popup": "popup.html"
+  }
+}
