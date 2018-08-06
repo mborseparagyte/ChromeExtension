@@ -27,40 +27,40 @@ document.addEventListener("DOMContentLoaded", function() {
     if (userURL) {
       testURL = userURL;
       // + "/Lists/candidate/ChromeExtention.aspx";
-      UrlExists(testURL, function(status) {
-        if (status == 200) {
-          $("#checkURL").hide();
-          localStorage.setItem("sharepointURL", userURL);
-          $("#errorMsg").css("color", "blue");
-          $("#errorMsg").text("Link saved ...!");
-          $("#errorText").show();
-          if (localStorage.getItem("exist") != null)
-            setTimeout(function() {
-              window.close();
-            }, 1000);
-          localStorage.setItem("exist", 1);
-
-          //-----------Set Site URL to Background script --------------------------------
-          chrome.runtime.sendMessage(
-            { greeting: "setSiteURL", siteURL: userURL },
-            function(response) {
-              //console.log(response.farewell);
-            }
-          );
-        } else if (status == 404 || status == 0) {
-          $("#checkURL").hide();
-          //localStorage.setItem("sharepointURL","");
-          $("#errorMsg").css("color", "red");
-          $("#errorMsg").text("Invalid Link...!");
-          $("#errorText").show();
-        } else {
-          localStorage.setItem("sharepointURL", "");
-        }
-      });
-    } else {
+      // UrlExists(testURL, function(status) {
+      // if (status == 200) {
       $("#checkURL").hide();
-      $("#errorMsg").css("color", "red");
-      $("#errorMsg").text("Enter URL");
+      localStorage.setItem("sharepointURL", userURL);
+      $("#errorMsg").css("color", "blue");
+      $("#errorMsg").text("Link saved ...!");
+      $("#errorText").show();
+      if (localStorage.getItem("exist") != null)
+        setTimeout(function() {
+          window.close();
+        }, 1000);
+      localStorage.setItem("exist", 1);
+
+      //-----------Set Site URL to Background script --------------------------------
+      chrome.runtime.sendMessage(
+        { greeting: "setSiteURL", siteURL: userURL },
+        function(response) {
+          //console.log(response.farewell);
+        }
+      );
+      // } else if (status == 404 || status == 0) {
+      //   $("#checkURL").hide();
+      //   //localStorage.setItem("sharepointURL","");
+      //   $("#errorMsg").css("color", "red");
+      //   $("#errorMsg").text("Invalid Link...!");
+      //   $("#errorText").show();
+      // } else {
+      //   localStorage.setItem("sharepointURL", "");
+      // }
+      //   });
+      // } else {
+      //   $("#checkURL").hide();
+      //   $("#errorMsg").css("color", "red");
+      //   $("#errorMsg").text("Enter URL");
     }
   });
 });
