@@ -81,12 +81,12 @@ function getWrapperDiv() {
             width: 800px;\
             height: 500px;\
             background:  white;\
-            margin-top:  100px;\
+            margin-top:  80px;\
             padding: 50px;\
             padding-bottom: 10px;\
             ">\
             <div class="formValues"></div>\
-            <div class="formActions"></div>\
+            <div class="formActions"><button id="cancel" type="button" class="btn btn-default btn-sm">Cancel</button><button type="button" class="btn btn-primary btn-sm">Add</button></div>\
       </div>\
     </div>';
 }
@@ -111,6 +111,9 @@ function renderDataToForm() {
       );
     }
   }
+  $("#cancel").click(function() {
+    $(".wrapperDiv").remove();
+  });
 }
 
 function toTitleCase(str) {
