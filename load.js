@@ -1,14 +1,23 @@
 function loadData() {
   //expanding skills information
   if (
-    $(".pv-profile-section__card-action-bar")
+    $("[aria-controls='top-card-summary-treasury']")
       .text()
-      .indexOf("View") != -1
+      .indexOf("Show more") != -1
   )
-    $("[data-control-name='skill_details']").trigger("click");
+    $("[aria-controls='top-card-summary-treasury']").trigger("click");
   //expandinf profile information
   $("[data-control-name='contact_see_more']").trigger("click");
-  var obj = ParseJsonInformation();
+  //var obj = ParseJsonInformation();
+
+  $(".pv-top-card-v2-section__contact-info").trigger("click");
+  this.setTimeout(() => {
+    var obj = ParseJsonInformation();
+    $("artdeco-modal .artdeco-dismiss").trigger("click");
+    getLoadedData(obj);
+  }, 2000);
+}
+function getLoadedData(obj) {
   var str = "";
   var imageFound = 0;
   for (var dobj in obj["sourceKeys"]) {

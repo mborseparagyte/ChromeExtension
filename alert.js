@@ -1,25 +1,25 @@
 var obj = {
   sourceUrl: "LinkedIn",
   sourceKeys: {
-    "profile Picture": ".pv-top-card-section__photo img",
+    "profile Picture": ".pv-top-card-section__photo",
     "full Name": "h1.pv-top-card-section__name",
     "current Profession": "h2.pv-top-card-section__headline",
     "current Company": "h3.pv-top-card-section__company",
     address: "h3.pv-top-card-section__location",
     "place To Live": "h3.pv-top-card-section__location",
     industry: ".industry",
-    "education Summary": ".pv-top-card-section__summary span",
+    "education Summary": ".pv-top-card-section__summary-text",
     interest: ".interests-listing ",
-    "birth Date":
-      ".pv-profile-section__section-info .ci-birthday .pv-contact-info__contact-item",
+    // "birth Date":
+    //   ".pv-profile-section__section-info .ci-birthday .pv-contact-info__contact-item",
     "marital Status": ".additional-info-listing tr:nth-child(2) td",
     skills: ".pv-skill-entity__skill-name",
-    linkedInId:
-      ".pv-profile-section__section-info .ci-vanity-url .pv-contact-info__contact-item",
+    "linkedIn Id":
+      ".pv-profile-section__section-info .ci-vanity-url .pv-contact-info__contact-link",
     email:
-      ".pv-profile-section__section-info .ci-email .pv-contact-info__contact-item",
+      ".pv-profile-section__section-info .ci-email .pv-contact-info__contact-link",
     phone:
-      ".pv-profile-section__section-info .ci-phone .pv-contact-info__contact-item",
+      ".pv-profile-section__section-info .ci-phone .pv-contact-info__contact-link",
     resume: ".connect-menu dd:nth-child(7) a",
     "career Start":
       ".experience-section li:last .pv-entity__date-range span:last"
@@ -40,10 +40,10 @@ var obj = {
     industry: "Industry",
     "education Summary": "EducationSummary",
     interest: "Interest",
-    "birth Date": "BirthDate",
+    // "birth Date": "BirthDate",
     "marital Status": "MaritalStatus",
     skills: "Skills",
-    linkedInId: "linkedInId",
+    "linkedIn Id": "linkedInId",
     email: "Email",
     phone: "Phone",
     resume: "Resume",
@@ -59,17 +59,30 @@ function ParseJsonInformation() {
     for (var item in obj["sourceKeys"]) {
       if ($(obj["sourceKeys"][item]).length == 1) {
         dobj["sourceKeys"][item] = $(obj["sourceKeys"][item]).text();
-        if ($(obj["sourceKeys"][item]).attr("src"))
-          dobj["sourceKeys"][item] = $(obj["sourceKeys"][item]).attr("src");
+        if ($(obj["sourceKeys"][item]).css("background-image") != "none")
+          dobj["sourceKeys"][item] = $(obj["sourceKeys"][item])
+            .css("background-image")
+            .split('"')[1];
         if ($(obj["sourceKeys"][item]).attr("href")) {
           var pagetitle = window.location.protocol;
           if (
             $(obj["sourceKeys"][item])
               .attr("href")
-              .indexOf(pagetitle) == -1
+              .indexOf("mailto") != -1
           )
-            dobj["sourceKeys"][item] =
-              window.location.origin + $(obj["sourceKeys"][item]).attr("href");
+            dobj["sourceKeys"][item] = $(obj["sourceKeys"][item])
+              .attr("href")
+              .split("mailto:")[1];
+          else {
+            if (
+              $(obj["sourceKeys"][item])
+                .attr("href")
+                .indexOf(pagetitle) == -1
+            )
+              dobj["sourceKeys"][item] =
+                window.location.origin +
+                $(obj["sourceKeys"][item]).attr("href");
+          }
         }
       } else if ($(obj["sourceKeys"][item]).length > 1) {
         var temp = "";

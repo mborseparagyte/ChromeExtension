@@ -18,7 +18,7 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js", "contentScriptForLinkedin.js"]
   },
   "permissions": ["storage", "contextMenus", "tabs", "<all_urls>"],
   "browser_action": {
