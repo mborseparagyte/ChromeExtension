@@ -92,16 +92,30 @@ function getWrapperDiv() {
             background:  white;\
             margin-top:  80px;\
             padding: 50px;\
-            padding-bottom: 10px;\
+            padding-bottom: 40px;\
             ">\
             <div class="formValues"></div>\
-            <div class="formActions"><button id="cancel" type="button" class="btn btn-default btn-sm">Cancel</button><button type="button" class="btn btn-primary btn-sm">Add</button></div>\
+            <div class="formActions">\
+              <button id="cancel" type="button" class="btn btn-default btn-sm">Cancel</button>\
+              <button type="button" class="btn btn-primary btn-sm saveAction">Add</button>\
+              <div class="loaderParent" > \
+                <div class="loader">\
+                  <div class="spinner"></div>\
+                  <span class="loaderText">Adding Candidate to bitpod</span> \
+                </div>\
+                </div>\
+            </div>\
+            <div class="errorText">Something went wrong! Please try again.</div>\
       </div>\
     </div>';
 }
 function renderDataToForm() {
   let wrapper = getWrapperDiv();
+
   $("body").append(wrapper);
+  $(".loaderParent").css("display", "none");
+  $(".errorText").css("display", "none");
+
   var data = globalObj["sourceKeys"];
   for (var key in data) {
     if (data.hasOwnProperty(key)) {
@@ -123,6 +137,84 @@ function renderDataToForm() {
   $("#cancel").click(function() {
     $(".wrapperDiv").remove();
   });
+  $(".saveAction").click(function() {
+    $(this).css("display", "none");
+    $(".loaderParent").css("display", "block");
+    $(".errorText").css("display", "none");
+
+    var data = globalObj["sourceKeys"];
+    var profilePicture = nullCheck(data["profile Picture"]),
+      fullName = nullCheck(data["full Name"]),
+      currentProfession = nullCheck(data["current Profession"]),
+      currentCompany = nullCheck(data["current Company"]),
+      address = nullCheck(data["address"]),
+      placeToLive = nullCheck(data["place To Live"]),
+      industry = nullCheck(data["industry"]),
+      educationSummary = nullCheck(data["education Summary"]),
+      interest = nullCheck(data["interest"]),
+      maritalStatus = nullCheck(data["marital Status"]),
+      skills = nullCheck(data["skills"]),
+      linkedInId = nullCheck(data["linkedIn Id"]),
+      email = nullCheck(data["email"]),
+      phone = nullCheck(data["phone"]),
+      resume = nullCheck(data["resume"]),
+      careerStart = nullCheck(data["career Start"]),
+      firstName = "",
+      lastName = "";
+    (createdDate = new Date().toISOString()), (modifiedDate = createdDate);
+    if (fullName) {
+      firstName = toTitleCase(fullName.split(" ")[0]);
+      lastName = toTitleCase(fullName.split(" ")[1]);
+    }
+    if (careerStart) {
+      careerStart = new Date(careerStart.split("–")[0]).toISOString();
+    }
+    var data = {
+      FirstName: firstName,
+      Email: email,
+      CurrentDesignation: currentProfession,
+      LinkedIn: linkedInId,
+      LastName: lastName,
+      EducationalNotes: educationSummary,
+      Phone: phone,
+      CareerStartDate: careerStart,
+      ProfilePicture: profilePicture,
+      createdDate: createdDate,
+      modifiedDate: modifiedDate,
+      _CurrentAddress: {
+        AddressLine: placeToLive || address
+      },
+      Source: "LinkedIn profile",
+      createdBy: "HR - Paragyte"
+    };
+    console.log(data);
+
+    $.ajax({
+      type: "POST",
+      url: siteUrl,
+      data: data,
+      headers: {
+        accesskey:
+          "64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
+      },
+      success: function(data) {
+        $(".saveAction").css("display", "block");
+        $(".loaderParent").css("display", "none");
+        $(".errorText").css("display", "none");
+        $(".wrapperDiv").remove();
+      },
+      error: function(err) {
+        $(".saveAction").css("display", "block");
+        $(".loaderParent").css("display", "none");
+        $(".errorText").css("display", "flex");
+      }
+    });
+    // $(".wrapperDiv").remove();
+  });
+}
+
+function nullCheck(val) {
+  return val == "" || val == "undefined" ? "" : $.trim(val);
 }
 
 function toTitleCase(str) {

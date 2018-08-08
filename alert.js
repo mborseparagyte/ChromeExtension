@@ -6,20 +6,21 @@ var obj = {
     "current Profession": "h2.pv-top-card-section__headline",
     "current Company": "h3.pv-top-card-section__company",
     address: "h3.pv-top-card-section__location",
-    "place To Live": "h3.pv-top-card-section__location",
+    "place To Live":
+      ".pv-profile-section__section-info .ci-address  .pv-contact-info__ci-container",
     industry: ".industry",
     "education Summary": ".pv-top-card-section__summary-text",
     interest: ".interests-listing ",
     // "birth Date":
     //   ".pv-profile-section__section-info .ci-birthday .pv-contact-info__contact-item",
     "marital Status": ".additional-info-listing tr:nth-child(2) td",
-    skills: ".pv-skill-entity__skill-name",
+    skills: "pv-skill-category-entity__name span",
     "linkedIn Id":
       ".pv-profile-section__section-info .ci-vanity-url .pv-contact-info__contact-link",
     email:
       ".pv-profile-section__section-info .ci-email .pv-contact-info__contact-link",
     phone:
-      ".pv-profile-section__section-info .ci-phone .pv-contact-info__contact-link",
+      ".pv-profile-section__section-info .ci-phone .pv-contact-info__ci-container span:first-child",
     resume: ".connect-menu dd:nth-child(7) a",
     "career Start":
       ".experience-section li:last .pv-entity__date-range span:last"
