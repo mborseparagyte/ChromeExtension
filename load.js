@@ -106,7 +106,7 @@ function getWrapperDiv() {
                   </div>\
                   </div>\
               </div>\
-              <div class="errorText">Something went wrong! Please try again.</div>\
+              <div class="errorText"></div>\
             </div>\
             <div class="successDivParent">\
               <div class ="successDiv">\
@@ -203,35 +203,71 @@ function renderDataToForm() {
       createdBy: "HR - Paragyte"
     };
     console.log(data);
-
-    $.ajax({
-      type: "POST",
-      url: siteUrl,
-      data: data,
-      headers: {
-        accesskey:
-          "64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
-      },
-      success: function(data) {
-        $(".saveAction").css("display", "block");
-        $(".loaderParent").css("display", "none");
-        $(".errorText").css("display", "none");
-
-        $(".candidateform").css("display", "none");
-        $(".successDivParent").css("display", "flex");
-        $(".doneAction").click(function() {
-          $(".wrapperDiv").remove();
-        });
-      },
-      error: function(err) {
-        $(".saveAction").css("display", "block");
-        $(".loaderParent").css("display", "none");
-        $(".errorText").css("display", "flex");
-      }
-    });
+    var userLinkedInId = data.LinkedIn;
+    if (!userLinkedInId) {
+      $(".loaderParent").css("display", "none");
+      $(".errorText").text("LinkedIn id not found, please try again!");
+      $(".errorText").css("display", "flex");
+    } else {
+      $.ajax({
+        type: "GET",
+        url: siteUrl,
+        data: {
+          filter: { where: { LinkedIn: userLinkedInId } }
+          // feilds:[]
+        },
+        // headers: {
+        //   accesskey:
+        //     "64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
+        // },
+        success: function(result) {
+          if (result.length) {
+            $(".saveAction").css("display", "block");
+            $(".loaderParent").css("display", "none");
+            $(".errorText").text("Candidate is already added!");
+            $(".errorText").css("display", "flex");
+          } else {
+            addCandidateToPortal(siteUrl, data);
+          }
+        },
+        error: function(err) {
+          $(".saveAction").css("display", "block");
+          $(".loaderParent").css("display", "none");
+          $(".errorText").text("Something went wrong! Please try again.");
+          $(".errorText").css("display", "flex");
+        }
+      });
+    }
   });
 }
+function addCandidateToPortal(siteUrl, data) {
+  $.ajax({
+    type: "POST",
+    url: siteUrl,
+    data: data,
+    headers: {
+      accesskey:
+        "64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
+    },
+    success: function(data) {
+      $(".saveAction").css("display", "block");
+      $(".loaderParent").css("display", "none");
+      $(".errorText").css("display", "none");
 
+      $(".candidateform").css("display", "none");
+      $(".successDivParent").css("display", "flex");
+      $(".doneAction").click(function() {
+        $(".wrapperDiv").remove();
+      });
+    },
+    error: function(err) {
+      $(".saveAction").css("display", "block");
+      $(".loaderParent").css("display", "none");
+      $(".errorText").text("Something went wrong! Please try again.");
+      $(".errorText").css("display", "flex");
+    }
+  });
+}
 function nullCheck(val) {
   return val == "" || val == "undefined" ? "" : $.trim(val);
 }
