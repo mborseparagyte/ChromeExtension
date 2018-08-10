@@ -211,24 +211,27 @@ function renderDataToForm() {
           filter: { where: { LinkedIn: userLinkedInId } },
           fields: ["id"]
         },
-        // headers: {
-        //   accesskey:
-        //     "64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
-        // },
+        headers: {
+          accesskey: accessKey
+        },
         success: function(result) {
           if (result.length) {
             $(".saveAction").css("display", "block");
             $(".loaderParent").css("display", "none");
-            $(".errorText").text("Candidate is already added!");
+            $(".errorText").text("Already added!");
             $(".errorText").css("display", "flex");
           } else {
             addCandidateToPortal(siteUrl, data);
           }
         },
         error: function(err) {
+          if (err.status == 401) {
+            $(".errorText").text("Authentication failed, Access key required!");
+          } else {
+            $(".errorText").text("Something went wrong! Please try again.");
+          }
           $(".saveAction").css("display", "block");
           $(".loaderParent").css("display", "none");
-          $(".errorText").text("Something went wrong! Please try again.");
           $(".errorText").css("display", "flex");
         }
       });
@@ -243,7 +246,6 @@ function addCandidateToPortal(siteUrl, data) {
     data: data,
     headers: {
       accesskey: accessKey
-      //"64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
     },
     success: function(data) {
       $(".saveAction").css("display", "block");
@@ -264,9 +266,13 @@ function addCandidateToPortal(siteUrl, data) {
       });
     },
     error: function(err) {
+      if (err.status == 401) {
+        $(".errorText").text("Authentication failed, Access key required!");
+      } else {
+        $(".errorText").text("Something went wrong! Please try again.");
+      }
       $(".saveAction").css("display", "block");
       $(".loaderParent").css("display", "none");
-      $(".errorText").text("Something went wrong! Please try again.");
       $(".errorText").css("display", "flex");
     }
   });
