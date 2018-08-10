@@ -63,6 +63,7 @@ function getLoadedData(obj) {
       str;
   }
   siteUrl = localStorage.getItem("sharepointURL");
+  accessKey = localStorage.getItem("accessKey");
   obj["destination"]["destinationUrl"] = siteUrl;
   listName = obj["destination"]["list"];
   loadedSite = obj["sourceUrl"];
@@ -246,8 +247,8 @@ function addCandidateToPortal(siteUrl, data) {
     url: siteUrl,
     data: data,
     headers: {
-      accesskey:
-        "64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
+      accesskey: accessKey
+      //"64c3813f55aaf42258aa8cac7f4b29e611e918e1c9b4010d8bb3bccfac6ef760d7ddb0db44b158280b62b2fbcb809f72"
     },
     success: function(data) {
       $(".saveAction").css("display", "block");

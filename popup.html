@@ -32,27 +32,29 @@
     <div id="settingIcon" style="font-size: 36px; margin-bottom: -2px; margin-left: 283px; margin-top: -22px; cursor: pointer; position: absolute;">
         <i class="fa fa-cogs" id="settingIcon" style="font-size: 26px;color: white;    position: absolute;    margin-left: -30px;    margin-top: -41px;"></i>
     </div>
-    <div id="setting" style="margin-top: -10px;">
-        <b style="font-size: 17px;color: #14147C;">Please input Sharepoint URL : </b>
-
-
-        <br />
+    <div id="setting">
+        <b style="font-size: 17px;color: #14147C;margin-top: 5px;">Portal URL : </b>
         <br />
         <!-- Save Icon  -->
-        <input type="text" id="siteURL" placeholder="Example.Sharepoint.com" style="width: 250px;height: 21px;margin-top: -8px;position: absolute;"> </input>
-        <i class="fa fa-floppy-o" id="linkSetting" style="font-size: 35px;color: blue;margin-left: 269px;margin-top: -4%;cursor: pointer;"
-            aria-hidden="true"></i>
+        <input type="text" id="siteURL" placeholder="Example.bitpod.com" style="width: 250px;height: 21px;"> </input>
+        <i class="fa fa-floppy-o" id="linkSetting" aria-hidden="true" style="position: absolute; font-size: 40px;color: blue;margin-left: 26px;margin-top: 24px;cursor: pointer;"></i>
+    </div>
+    <br />
+    <div id="settingAccess" style="margin-top: -10px;">
+        <b style="font-size: 17px;color: #14147C;margin-top: 5px;">Access key : </b>
+        <br />
+        <input type="text" id="accessKey" placeholder="key" style="width: 250px;height: 21px;"> </input>
     </div>
 
     <!-- URL Validation  -->
-    <div id="checkURL" style="display:none;margin-bottom: -23px;">
+    <div id="checkURL" style="display:none; margin-top: 10px;">
         <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-        <span class="sr-only" style="position: absolute;font-size: larger;color: #13086C;margin-top: 2px;margin-left: 8px;">Validating URL...</span>
+        <span class="sr-only">Validating URL...</span>
     </div>
 
     <!-- Validation Text  -->
-    <div id="errorText">
-        <span id="errorMsg" style="font-size: initial;font-family:serif;margin-top: 1px;position: absolute;color: red;"></span>
+    <div id="errorText" style="display: block;margin-top: 10px;margin-bottom: -15px;">
+        <span id="errorMsg" style="font-size: initial;font-family:serif;color: red;"></span>
     </div>
     <br />
     <center>

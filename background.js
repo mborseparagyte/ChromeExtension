@@ -1,15 +1,16 @@
 siteURL = "";
-
+accessKey = "";
 chrome.runtime.onMessage.addListener(function(request) {
   if (request.greeting == "setSiteURL") {
     siteURL = request.siteURL;
+    accessKey = request.accessKey;
   }
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.greeting == "requestForURL") {
     //alert(siteURL);
-    sendResponse({ replyURL: siteURL });
+    sendResponse({ replyURL: siteURL, accessKey: accessKey });
   }
 });
 

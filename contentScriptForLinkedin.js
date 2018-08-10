@@ -11,10 +11,12 @@ btnOnLinkedIn.addEventListener("click", function() {
   chrome.runtime.sendMessage({ greeting: "requestForURL" }, function(response) {
     //Request Site URL to Background script
     siteURL = response.replyURL;
+    accessKey = response.accessKey;
     if (siteURL) {
       localStorage.setItem("sharepointURL", siteURL);
+      localStorage.setItem("accessKey", accessKey);
       loadData();
-    } else alert("Enter Site URL first");
+    } else alert("Enter site URL first");
   });
 });
 
