@@ -27,8 +27,7 @@ var obj = {
   },
   destination: {
     type: "SharePoint",
-    destinationUrl:
-      "https://onparagyte.sharepoint.com/sites/people/lists/candidate/ChromeExtention.aspx",
+    destinationUrl: "",
     list: "Candidate"
   },
   sourceMapping: {

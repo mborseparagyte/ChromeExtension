@@ -32,7 +32,15 @@
 .header {
   height: 39px;
   width: 100%;
-  background-color: #454580;
+  background-color: #555aa1;
+  border-radius: 3px;
+  border-radius: 20px 5px 5px 20px;
+}
+.iconImage {
+  max-height: 35px;
+  margin-left: 2px;
+  margin-top: 2px;
+  border-radius: 33px;
 }
 
 ::-webkit-scrollbar-track {

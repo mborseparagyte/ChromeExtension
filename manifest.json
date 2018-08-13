@@ -4,7 +4,9 @@
   "description": "Profile Description",
   "version": "1.0",
   "icons": {
-    "48": "icon.png"
+    "16": "bitpod16.png",
+    "48": "bitpod48.png",
+    "128": "bitpod128.png"
   },
   "content_scripts": [
     {
@@ -18,12 +20,13 @@
     }
   ],
   "background": {
-    "scripts": ["background.js", "contentScriptForLinkedin.js"]
+    "scripts": ["background.js", "contentScriptForLinkedin.js"],
+    "persistent": false
   },
   "permissions": ["storage", "contextMenus", "tabs", "<all_urls>"],
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_title": "Profile Analyzer",
+    "default_icon": "bitpod16.png",
+    "default_title": "Bitpod import",
     "default_popup": "popup.html"
   }
 }

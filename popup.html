@@ -9,10 +9,10 @@
 <body style="width: 325px;" id="pageBody">
     <div class="header">
         <div class="appIcon" style="max-height: 9px;">
-            <img src="icon.png" style="max-height: 42px; margin-left: 4px; margin-top: 4px;"></img>
+            <img src="bitpod48.png" class="iconImage"></img>
         </div>
         <div style="margin-left: 70px; font-size: 20px; margin-top: -5px;    position: absolute;">
-            <span style="color:white;font-weight:bold">Connect</span>
+            <span style="color:white;font-weight:bold">Bitpod import</span>
         </div>
         <div id="popupCross" class="cross fa fa-times" style="font-size:30px;color:white;margin-left: 295px; cursor: pointer; margin-top: -5px;"></div>
     </div>
@@ -33,24 +33,25 @@
         <i class="fa fa-cogs" id="settingIcon" style="font-size: 26px;color: white;    position: absolute;    margin-left: -30px;    margin-top: -41px;"></i>
     </div>
     <div id="setting">
-        <b style="font-size: 17px;color: #14147C;margin-top: 5px;">Portal URL : </b>
+        <div>
+            <b style="font-size: 17px;color: #14147C;margin-top: 5px;">Portal URL : </b>
+            <br />
+            <!-- Save Icon  -->
+            <input type="text" id="siteURL" placeholder="Example.bitpod.com" style="width: 250px;height: 21px;"> </input>
+            <i class="fa fa-floppy-o" id="linkSetting" aria-hidden="true" style="position: absolute; font-size: 40px;color: blue;margin-left: 26px;margin-top: 24px;cursor: pointer;"></i>
+        </div>
         <br />
-        <!-- Save Icon  -->
-        <input type="text" id="siteURL" placeholder="Example.bitpod.com" style="width: 250px;height: 21px;"> </input>
-        <i class="fa fa-floppy-o" id="linkSetting" aria-hidden="true" style="position: absolute; font-size: 40px;color: blue;margin-left: 26px;margin-top: 24px;cursor: pointer;"></i>
+        <div id="settingAccess" style="margin-top: -10px;">
+            <b style="font-size: 17px;color: #14147C;margin-top: 5px;">Access key : </b>
+            <br />
+            <input type="text" id="accessKey" placeholder="key" style="width: 250px;height: 21px;"> </input>
+        </div>
     </div>
-    <br />
-    <div id="settingAccess" style="margin-top: -10px;">
-        <b style="font-size: 17px;color: #14147C;margin-top: 5px;">Access key : </b>
-        <br />
-        <input type="text" id="accessKey" placeholder="key" style="width: 250px;height: 21px;"> </input>
-    </div>
-
     <!-- URL Validation  -->
-    <div id="checkURL" style="display:none; margin-top: 10px;">
+    <!-- <div id="checkURL" style="display:none; margin-top: 10px;">
         <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
         <span class="sr-only">Validating URL...</span>
-    </div>
+    </div> -->
 
     <!-- Validation Text  -->
     <div id="errorText" style="display: block;margin-top: 10px;margin-bottom: -15px;">
