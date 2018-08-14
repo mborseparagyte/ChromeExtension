@@ -62,3 +62,16 @@
   width: 65px;
   overflow-y: scroll;
 }
+.singleQueryparent {
+  display: flex;
+  padding: 5px 0px;
+}
+.querylable {
+  flex-basis: 40%;
+}
+.querySection {
+  margin-top: 10px;
+}
+.querySectionParentClass {
+  margin-top: 10px;
+}

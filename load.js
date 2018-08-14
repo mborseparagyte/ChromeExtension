@@ -193,7 +193,7 @@ function renderDataToForm() {
       _CurrentAddress: {
         AddressLine: placeToLive || address
       },
-      Source: "LinkedIn profile",
+      Source: "LinkedIn",
       createdBy: "HR - Paragyte"
     };
     //console.log(data);

@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   //--------- Setting icon Click ----------------------------------------------------
   settingIcon.addEventListener("click", function() {
-    $("#setting").toggle();
+    //$("#setting").toggle();
+    getExtractionQueries();
   });
 
   userURL = localStorage.getItem("sharepointURL");
@@ -29,9 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     accessKey = $("#accessKey").val();
     if (userURL) {
       testURL = userURL;
-      // + "/Lists/candidate/ChromeExtention.aspx";
-      // UrlExists(testURL, function(status) {
-      // if (status == 200) {
+
       $("#checkURL").hide();
       localStorage.setItem("sharepointURL", userURL);
       localStorage.setItem("accessKey", accessKey);
@@ -51,20 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
           //console.log(response.farewell);
         }
       );
-      // } else if (status == 404 || status == 0) {
-      //   $("#checkURL").hide();
-      //   //localStorage.setItem("sharepointURL","");
-      //   $("#errorMsg").css("color", "red");
-      //   $("#errorMsg").text("Invalid Link...!");
-      //   $("#errorText").show();
-      // } else {
-      //   localStorage.setItem("sharepointURL", "");
-      // }
-      //   });
-      // } else {
-      //   $("#checkURL").hide();
-      //   $("#errorMsg").css("color", "red");
-      //   $("#errorMsg").text("Enter URL");
     }
   });
 });
@@ -77,5 +62,62 @@ function UrlExists(url, cb) {
     complete: function(xhr) {
       if (typeof cb === "function") cb.apply(this, [xhr.status]);
     }
+  });
+}
+
+function getExtractionQueries() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { greeting: "reqForQueries" }, function(
+      response
+    ) {
+      $("#querySection").empty();
+      var queries = response.queries["sourceKeys"],
+        queryDivs =
+          ' <b style="font-size: 17px;color: #14147C;margin-top: 15px;margin-bottom: 5px;">Settings : </b>';
+      Object.keys(queries).forEach((currentQueryKey, index) => {
+        var currentQueryVal = queries[currentQueryKey];
+        // <div class=""> </div>;
+        queryDivs +=
+          '<div class ="quesriesParent"> \
+                  <div class ="singleQueryparent"> \
+                    <div class ="querylable">' +
+          toTitleCase(currentQueryKey) +
+          ' </div>\
+                    <div class ="queryInput"> <input class="textHandler" type="text" value="' +
+          currentQueryVal +
+          '"  data-key="' +
+          currentQueryKey +
+          '"></input> </div>\
+                  </div>\
+                </div>';
+      });
+      $("#querySection").append(queryDivs);
+      $(".textHandler").on("input", function(a, b, c) {
+        var queryKey = $(this).attr("data-key"),
+          queryVal = $(this).val();
+        console.log("Key:", queryKey);
+        console.log("Input Value:", queryVal);
+        queries[queryKey] = queryVal;
+        setNewQueries(queries);
+      });
+    });
+  });
+}
+
+function setNewQueries(updatedQueries) {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.sendMessage(
+      tabs[0].id,
+      { greeting: "setNewQueriesData", updatedQueries: updatedQueries },
+      function(response) {
+        //getExtractionQueries();
+      }
+    );
+  });
+}
+
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }

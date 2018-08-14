@@ -14,7 +14,7 @@ var obj = {
     // "birth Date":
     //   ".pv-profile-section__section-info .ci-birthday .pv-contact-info__contact-item",
     "marital Status": ".additional-info-listing tr:nth-child(2) td",
-    skills: "pv-skill-category-entity__name span",
+    skills: ".pv-skill-category-entity__name span",
     "linkedIn Id":
       ".pv-profile-section__section-info .ci-vanity-url .pv-contact-info__contact-link",
     email:
@@ -52,8 +52,12 @@ var obj = {
 };
 
 function ParseJsonInformation() {
-  var dobj = { sourceKeys: {}, destination: {}, sourceMapping: {} };
-  var pagetitle;
+  var dobj = { sourceKeys: {}, destination: {}, sourceMapping: {} },
+    pagetitle;
+  var localStorageObj = localStorage.getItem("updatedQueries");
+  if (localStorageObj) {
+    obj = JSON.parse(localStorageObj);
+  }
   pagetitle = $("title").text();
   if (pagetitle.indexOf(obj["sourceUrl"]) != -1) {
     for (var item in obj["sourceKeys"]) {
@@ -97,3 +101,16 @@ function ParseJsonInformation() {
   }
   return dobj;
 }
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.greeting == "reqForQueries") {
+    sendResponse({ queries: obj });
+  }
+});
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.greeting == "setNewQueriesData") {
+    console.log("updatedQueries:", request.updatedQueries);
+    obj["sourceKeys"] = request.updatedQueries;
+    localStorage.setItem("updatedQueries", JSON.stringify(obj));
+  }
+});
