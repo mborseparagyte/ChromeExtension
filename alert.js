@@ -109,7 +109,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.greeting == "setNewQueriesData") {
-    console.log("updatedQueries:", request.updatedQueries);
     obj["sourceKeys"] = request.updatedQueries;
     localStorage.setItem("updatedQueries", JSON.stringify(obj));
   }

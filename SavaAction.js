@@ -95,8 +95,6 @@ function getExtractionQueries() {
       $(".textHandler").on("input", function(a, b, c) {
         var queryKey = $(this).attr("data-key"),
           queryVal = $(this).val();
-        console.log("Key:", queryKey);
-        console.log("Input Value:", queryVal);
         queries[queryKey] = queryVal;
         setNewQueries(queries);
       });
