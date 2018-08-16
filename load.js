@@ -159,7 +159,7 @@ function renderDataToForm() {
       address = nullCheck(data["address"]),
       placeToLive = nullCheck(data["place To Live"]),
       industry = nullCheck(data["industry"]),
-      educationSummary = nullCheck(data["education Summary"]),
+      careerSummary = nullCheck(data["career Summary"]),
       interest = nullCheck(data["interest"]),
       maritalStatus = nullCheck(data["marital Status"]),
       skills = nullCheck(data["skills"]),
@@ -173,7 +173,12 @@ function renderDataToForm() {
     (createdDate = new Date().toISOString()), (modifiedDate = createdDate);
     if (fullName) {
       firstName = toTitleCase(fullName.split(" ")[0]);
-      lastName = toTitleCase(fullName.split(" ")[1]);
+      lastName = toTitleCase(
+        fullName
+          .split(" ")
+          .splice(1)
+          .join(" ")
+      );
     }
     if (careerStart) {
       careerStart = new Date(careerStart.split("–")[0]).toISOString();
@@ -184,7 +189,7 @@ function renderDataToForm() {
       CurrentDesignation: currentProfession,
       LinkedIn: linkedInId,
       LastName: lastName,
-      CareerSummary: educationSummary,
+      CareerSummary: careerSummary,
       Phone: phone,
       CareerStartDate: careerStart,
       ProfilePicture: profilePicture,

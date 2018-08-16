@@ -9,7 +9,7 @@ var obj = {
     "place To Live":
       ".pv-profile-section__section-info .ci-address  .pv-contact-info__ci-container",
     industry: ".industry",
-    "education Summary": ".pv-top-card-section__summary-text",
+    "career Summary": ".pv-top-card-section__summary-text",
     interest: ".interests-listing ",
     // "birth Date":
     //   ".pv-profile-section__section-info .ci-birthday .pv-contact-info__contact-item",
@@ -38,7 +38,7 @@ var obj = {
     address: "Address",
     "place To Live": "PlaceToLive",
     industry: "Industry",
-    "education Summary": "EducationSummary",
+    "career Summary": "EducationSummary",
     interest: "Interest",
     // "birth Date": "BirthDate",
     "marital Status": "MaritalStatus",
